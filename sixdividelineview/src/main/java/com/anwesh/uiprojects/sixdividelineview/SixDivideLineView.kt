@@ -17,7 +17,7 @@ val scGap : Float = 0.02f / (parts * lines)
 val strokeFactor : Int = 90
 val sizeFactor : Float = 4.8f
 val backColor : Int = Color.parseColor("#BDBDBD")
-val delay : Long = 20
+val delay : Long = 10
 
 fun Int.inverse() : Float = 1f / this
 fun Float.maxScale(i : Int, n : Int) : Float = Math.max(0f, this - i * n.inverse())
@@ -44,7 +44,7 @@ fun Canvas.drawSDLNode(i : Int, scale : Float, paint : Paint) {
     paint.color = Color.parseColor(colors[i])
     paint.strokeCap = Paint.Cap.ROUND
     paint.strokeWidth = Math.min(w, h) / strokeFactor
-    for (j in 0..(parts - 1)) {
+    for (j in 0..(lines - 1)) {
         drawSixDivideLine(j, scale, w, h, paint)
     }
 }
