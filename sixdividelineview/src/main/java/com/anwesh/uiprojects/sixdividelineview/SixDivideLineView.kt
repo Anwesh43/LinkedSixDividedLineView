@@ -16,7 +16,7 @@ val lines : Int = 6
 val scGap : Float = 0.02f / (parts * lines)
 val strokeFactor : Int = 90
 val sizeFactor : Float = 4.8f
-val foreColor : Int = Color.parseColor("#BDBDBD")
+val backColor : Int = Color.parseColor("#BDBDBD")
 val delay : Long = 20
 
 fun Int.inverse() : Float = 1f / this
@@ -173,6 +173,29 @@ class SixDivideLineView(ctx : Context) : View(ctx) {
 
         fun startUpdating(cb : () -> Unit) {
             curr.startUpdating(cb)
+        }
+    }
+
+    data class Renderer(var view : SixDivideLineView) {
+
+        private val animator : Animator = Animator(view)
+        private val sdl : SixDivideLine = SixDivideLine(0)
+        private val paint : Paint = Paint(Paint.ANTI_ALIAS_FLAG)
+
+        fun render(canvas : Canvas) {
+            canvas.drawColor(backColor)
+            sdl.draw(canvas, paint)
+            animator.animate {
+                sdl.update {
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            sdl.startUpdating {
+                animator.start()
+            }
         }
     }
 }
