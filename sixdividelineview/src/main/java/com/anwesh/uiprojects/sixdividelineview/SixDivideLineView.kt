@@ -200,4 +200,13 @@ class SixDivideLineView(ctx : Context) : View(ctx) {
             }
         }
     }
+
+    companion object {
+
+        fun create(activity : Activity) : SixDivideLineView {
+            val view : SixDivideLineView = SixDivideLineView(activity)
+            activity.setContentView(view)
+            return view
+        }
+    }
 }
